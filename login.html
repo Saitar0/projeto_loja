@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TechStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-shopping-store me-2"></i>TechStore
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Loja
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.html">
+                            <i class="fas fa-shopping-cart me-1"></i>
+                            Carrinho (<span id="cart-count">0</span>)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="login.html">
+                            <i class="fas fa-user me-1"></i>Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login/Register Section -->
+    <section class="auth-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <!-- Login/Register Toggle -->
+                            <ul class="nav nav-pills nav-justified mb-4" id="auth-tabs">
+                                <li class="nav-item">
+                                    <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login-form">
+                                        Login
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register-form">
+                                        Registro
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <!-- Login Form -->
+                                <div class="tab-pane fade show active" id="login-form">
+                                    <h4 class="text-center mb-4">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Entrar na Conta
+                                    </h4>
+                                    
+                                    <form id="loginForm">
+                                        <div class="mb-3">
+                                            <label for="login-email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="login-email" required>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="login-password" class="form-label">Senha</label>
+                                            <input type="password" class="form-control" id="login-password" required>
+                                        </div>
+                                        
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="remember-me">
+                                            <label class="form-check-label" for="remember-me">
+                                                Lembrar de mim
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary btn-lg">
+                                                <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                                            </button>
+                                        </div>
+                                    </form>
+                                    
+                                    <div class="text-center mt-3">
+                                        <a href="#" class="text-decoration-none">Esqueceu sua senha?</a>
+                                    </div>
+                                </div>
+
+                                <!-- Register Form -->
+                                <div class="tab-pane fade" id="register-form">
+                                    <h4 class="text-center mb-4">
+                                        <i class="fas fa-user-plus me-2"></i>Criar Conta
+                                    </h4>
+                                    
+                                    <form id="registerForm">
+                                        <div class="mb-3">
+                                            <label for="register-name" class="form-label">Nome Completo</label>
+                                            <input type="text" class="form-control" id="register-name" required>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="register-email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="register-email" required>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="register-password" class="form-label">Senha</label>
+                                            <input type="password" class="form-control" id="register-password" required>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="register-confirm-password" class="form-label">Confirmar Senha</label>
+                                            <input type="password" class="form-control" id="register-confirm-password" required>
+                                        </div>
+                                        
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="accept-terms" required>
+                                            <label class="form-check-label" for="accept-terms">
+                                                Aceito os <a href="#" class="text-decoration-none">termos de uso</a>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-success btn-lg">
+                                                <i class="fas fa-user-plus me-2"></i>Criar Conta
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Login -->
+                            <div class="mt-4">
+                                <div class="text-center mb-3">
+                                    <span class="text-muted">ou entre com</span>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-dark" onclick="simulateLogin('Google')">
+                                        <i class="fab fa-google me-2"></i>Google
+                                    </button>
+                                    <button class="btn btn-outline-primary" onclick="simulateLogin('Facebook')">
+                                        <i class="fab fa-facebook me-2"></i>Facebook
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>TechStore</h5>
+                    <p>Sua loja de tecnologia de confiança.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2024 TechStore. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
