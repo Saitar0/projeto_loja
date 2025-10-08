@@ -251,44 +251,48 @@ class HomePage {
         HomePage.loadProducts();
     }
 
-    static loadProducts() {
-        const container = document.getElementById('products-container');
-        if (!container) return;
+    // Adicione esta função na classe HomePage após a linha 337:
+static loadProducts() {
+    const container = document.getElementById('products-container');
+    if (!container) return;
 
-        container.innerHTML = '';
+    container.innerHTML = '';
+    
+    products.forEach(product => {
+        const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
         
-        products.forEach(product => {
-            const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-            
-            const productCard = document.createElement('div');
-            productCard.className = 'col-lg-4 col-md-6 mb-4';
-            productCard.innerHTML = `
-                <div class="card product-card h-100">
-                    <div class="position-relative">
-                        <img src="${product.image}" class="card-img-top product-image" alt="${product.name}">
-                        <span class="badge-discount">-${discount}%</span>
+        const productCard = document.createElement('div');
+        productCard.className = 'col-lg-4 col-md-6 mb-4';
+        productCard.innerHTML = `
+            <div class="card product-card h-100">
+                <div class="position-relative">
+                    <img src="${product.image}" 
+                         class="card-img-top product-image" 
+                         alt="${product.name}"
+                         onerror="this.src='https://via.placeholder.com/400x300/cccccc/666666?text=Imagem+Indisponível'">
+                    <span class="badge-discount">-${discount}%</span>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${product.name}</h5>
+                    <p class="card-text text-muted flex-grow-1">${product.description.substring(0, 100)}...</p>
+                    <div class="price-section mb-3">
+                        <div class="product-price">${Utils.formatPrice(product.price)}</div>
+                        <small class="product-original-price">${Utils.formatPrice(product.originalPrice)}</small>
                     </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">${product.name}</h5>
-                        <p class="card-text text-muted flex-grow-1">${product.description.substring(0, 100)}...</p>
-                        <div class="price-section mb-3">
-                            <div class="product-price">${Utils.formatPrice(product.price)}</div>
-                            <small class="product-original-price">${Utils.formatPrice(product.originalPrice)}</small>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" onclick="cart.addItem(${product.id})">
-                                <i class="fas fa-cart-plus me-2"></i>Adicionar ao Carrinho
-                            </button>
-                            <a href="produto.html?id=${product.id}" class="btn btn-outline-primary">
-                                <i class="fas fa-eye me-2"></i>Ver Detalhes
-                            </a>
-                        </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" onclick="cart.addItem(${product.id})">
+                            <i class="fas fa-cart-plus me-2"></i>Adicionar ao Carrinho
+                        </button>
+                        <a href="produto.html?id=${product.id}" class="btn btn-outline-primary">
+                            <i class="fas fa-eye me-2"></i>Ver Detalhes
+                        </a>
                     </div>
                 </div>
-            `;
-            container.appendChild(productCard);
-        });
-    }
+            </div>
+        `;
+        container.appendChild(productCard);
+    });
+}
 }
 
 // ===== FUNCIONALIDADES DA PÁGINA DE PRODUTO =====
