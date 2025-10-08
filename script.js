@@ -8,7 +8,7 @@ const products = [
         name: "Smartphone Galaxy Pro",
         price: 2499.99,
         originalPrice: 2799.99,
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop&crop=center",
+        image: "./images/D_Q_NP_666337-MLU77110909080_062024-O.webp",
         description: "Smartphone topo de linha com câmera de 108MP, processador octa-core e 256GB de armazenamento. Tela AMOLED de 6.7 polegadas com refresh rate de 120Hz.",
         category: "smartphones",
         inStock: true,
@@ -26,7 +26,7 @@ const products = [
         name: "Notebook UltraBook Pro",
         price: 4299.99,
         originalPrice: 4899.99,
-        image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop&crop=center",
+        image: "./images/-1260046343.jpg",
         description: "Notebook profissional com processador Intel i7, 16GB RAM, SSD 512GB e placa de vídeo dedicada. Ideal para trabalho e games.",
         category: "notebooks",
         inStock: true,
@@ -44,7 +44,7 @@ const products = [
         name: "Fone Bluetooth Premium",
         price: 399.99,
         originalPrice: 499.99,
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center",
+        image: "./images/headphone_s_fio_bluetooth_premium_2359_1_4f4a989d23ab10c449bd5fe29919b320.webp",
         description: "Fone de ouvido wireless com cancelamento de ruído ativo, som Hi-Fi e bateria de longa duração. Perfeito para música e chamadas.",
         category: "audio",
         inStock: true,
@@ -62,7 +62,7 @@ const products = [
         name: "Smart TV 55'' 4K",
         price: 2199.99,
         originalPrice: 2599.99,
-        image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=300&fit=crop&crop=center",
+        image: "./images/4xg.avif",
         description: "Smart TV 55 polegadas com resolução 4K Ultra HD, sistema Android TV, HDR e múltiplas entradas HDMI. Entretenimento em alta qualidade.",
         category: "tv",
         inStock: true,
@@ -80,7 +80,7 @@ const products = [
         name: "Tablet Pro 11''",
         price: 1899.99,
         originalPrice: 2199.99,
-        image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop&crop=center",
+        image: "./images/61nshfaBV9L._UF1000,1000_QL80_.jpg",
         description: "Tablet profissional com tela de 11 polegadas, suporte à caneta digital, processador potente e ideal para produtividade e criatividade.",
         category: "tablets",
         inStock: true,
@@ -179,7 +179,7 @@ class CartSystem {
             existingItem.quantity += quantity;
         } else {
             this.items.push({
-                id: productId,
+                id: product.id,
                 name: product.name,
                 price: product.price,
                 image: product.image,
@@ -196,10 +196,8 @@ class CartSystem {
     removeItem(productId) {
         const index = this.items.findIndex(item => item.id === productId);
         if (index > -1) {
-            const item = this.items[index];
             this.items.splice(index, 1);
             this.saveCart();
-            Utils.showAlert(`${item.name} removido do carrinho!`, 'warning');
             return true;
         }
         return false;
@@ -237,7 +235,7 @@ class CartSystem {
         const countElements = document.querySelectorAll('#cart-count');
         const count = this.getTotalItems();
         countElements.forEach(element => {
-            if (element) element.textContent = count;
+            element.textContent = count;
         });
     }
 }
@@ -252,47 +250,48 @@ class HomePage {
     }
 
     // Adicione esta função na classe HomePage após a linha 337:
-static loadProducts() {
-    const container = document.getElementById('products-container');
-    if (!container) return;
+    static loadProducts() {
+        const container = document.getElementById('products-container');
+        if (!container) return;
 
-    container.innerHTML = '';
-    
-    products.forEach(product => {
-        const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+        container.innerHTML = '';
         
-        const productCard = document.createElement('div');
-        productCard.className = 'col-lg-4 col-md-6 mb-4';
-        productCard.innerHTML = `
-            <div class="card product-card h-100">
-                <div class="position-relative">
-                    <img src="${product.image}" 
-                         class="card-img-top product-image" 
-                         alt="${product.name}"
-                         onerror="this.src='https://via.placeholder.com/400x300/cccccc/666666?text=Imagem+Indisponível'">
-                    <span class="badge-discount">-${discount}%</span>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${product.name}</h5>
-                    <p class="card-text text-muted flex-grow-1">${product.description.substring(0, 100)}...</p>
-                    <div class="price-section mb-3">
-                        <div class="product-price">${Utils.formatPrice(product.price)}</div>
-                        <small class="product-original-price">${Utils.formatPrice(product.originalPrice)}</small>
+        products.forEach(product => {
+            const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+            
+            const productCard = document.createElement('div');
+            productCard.className = 'col-lg-4 col-md-6 mb-4';
+            productCard.innerHTML = `
+                <div class="card product-card h-100">
+                    <div class="position-relative">
+                        <img src="${product.image}" 
+                             class="card-img-top product-image" 
+                             alt="${product.name}"
+                             onerror="this.src='https://via.placeholder.com/400x300/cccccc/666666?text=Imagem+Indisponível'"
+                             style="height: 250px; object-fit: cover;">
+                        <span class="badge-discount">-${discount}%</span>
                     </div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary" onclick="cart.addItem(${product.id})">
-                            <i class="fas fa-cart-plus me-2"></i>Adicionar ao Carrinho
-                        </button>
-                        <a href="produto.html?id=${product.id}" class="btn btn-outline-primary">
-                            <i class="fas fa-eye me-2"></i>Ver Detalhes
-                        </a>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text text-muted flex-grow-1">${product.description.substring(0, 100)}...</p>
+                        <div class="price-section mb-3">
+                            <div class="product-price">${Utils.formatPrice(product.price)}</div>
+                            <small class="product-original-price">${Utils.formatPrice(product.originalPrice)}</small>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" onclick="cart.addItem(${product.id})">
+                                <i class="fas fa-cart-plus me-2"></i>Adicionar ao Carrinho
+                            </button>
+                            <a href="produto.html?id=${product.id}" class="btn btn-outline-primary">
+                                <i class="fas fa-eye me-2"></i>Ver Detalhes
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        container.appendChild(productCard);
-    });
-}
+            `;
+            container.appendChild(productCard);
+        });
+    }
 }
 
 // ===== FUNCIONALIDADES DA PÁGINA DE PRODUTO =====
@@ -341,16 +340,30 @@ class ProductPage {
         
         relatedContainer.innerHTML = '';
         relatedProducts.forEach(product => {
+            const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
             const productCard = document.createElement('div');
-            productCard.className = 'col-lg-4 col-md-6 mb-3';
+            productCard.className = 'col-md-4 mb-3';
             productCard.innerHTML = `
                 <div class="card product-card h-100">
-                    <img src="${product.image}" class="card-img-top product-image" alt="${product.name}">
-                    <div class="card-body">
+                    <div class="position-relative">
+                        <img src="${product.image}" 
+                             class="card-img-top" 
+                             alt="${product.name}"
+                             style="height: 200px; object-fit: cover;">
+                        <span class="badge-discount">-${discount}%</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
                         <h6 class="card-title">${product.name}</h6>
-                        <div class="product-price">${Utils.formatPrice(product.price)}</div>
-                        <div class="mt-2">
-                            <a href="produto.html?id=${product.id}" class="btn btn-sm btn-outline-primary">Ver Produto</a>
+                        <div class="price-section mb-2">
+                            <div class="product-price">${Utils.formatPrice(product.price)}</div>
+                        </div>
+                        <div class="d-grid gap-1">
+                            <button class="btn btn-sm btn-primary" onclick="cart.addItem(${product.id})">
+                                <i class="fas fa-cart-plus me-1"></i>Adicionar
+                            </button>
+                            <a href="produto.html?id=${product.id}" class="btn btn-sm btn-outline-primary">
+                                Ver Detalhes
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -415,7 +428,7 @@ class CartPage {
             cartItem.innerHTML = `
                 <div class="row align-items-center">
                     <div class="col-md-2">
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px;">
                     </div>
                     <div class="col-md-4">
                         <h6>${item.name}</h6>
@@ -619,9 +632,10 @@ class CheckoutPage {
             itemDiv.className = 'd-flex justify-content-between align-items-center mb-2';
             itemDiv.innerHTML = `
                 <div class="d-flex align-items-center">
-                    <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; object-fit: cover;" class="rounded me-2">
+                    <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" class="me-2">
                     <div>
-                        <small class="d-block">${item.name}</small>
+                        <small>${item.name}</small>
+                        <br>
                         <small class="text-muted">Qtd: ${item.quantity}</small>
                     </div>
                 </div>
@@ -645,12 +659,16 @@ class CheckoutPage {
 
         // Alternar campos de pagamento
         paymentMethods.forEach(method => {
-            method.addEventListener('change', () => {
+            method.addEventListener('change', function() {
                 const creditCardFields = document.getElementById('credit-card-fields');
-                if (method.value === 'credit' && method.checked) {
+                const pixFields = document.getElementById('pix-fields');
+                
+                if (this.value === 'credit') {
                     creditCardFields.style.display = 'block';
-                } else if (method.value === 'pix' && method.checked) {
+                    if (pixFields) pixFields.style.display = 'none';
+                } else if (this.value === 'pix') {
                     creditCardFields.style.display = 'none';
+                    if (pixFields) pixFields.style.display = 'block';
                 }
             });
         });
@@ -684,7 +702,7 @@ class CheckoutPage {
         setTimeout(() => {
             resetLoading();
             
-            // Gerar dados do pedido
+            // Criar dados do pedido
             const orderData = {
                 id: Utils.generateOrderId(),
                 date: Utils.getCurrentDate(),
@@ -724,12 +742,11 @@ class SuccessPage {
         document.getElementById('order-number').textContent = order.id;
         document.getElementById('order-date').textContent = order.date;
         document.getElementById('order-total').textContent = Utils.formatPrice(order.total);
-
+        
         // Carregar itens para impressão
         const printOrderItems = document.getElementById('print-order-items');
         if (printOrderItems) {
             printOrderItems.innerHTML = '';
-            
             order.items.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'd-flex justify-content-between mb-2';
